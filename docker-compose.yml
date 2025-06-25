@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./src
+      dockerfile: ChatBot.API/Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./src:/src
+
+  frontend:
+    build:
+      context: ./src
+      dockerfile: chat-bot-ui/Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
