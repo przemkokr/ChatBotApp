@@ -14,8 +14,8 @@ services:
 
   frontend:
     build:
-      context: ./src
-      dockerfile: chat-bot-ui/Dockerfile
+      context: ./src/chat-bot-ui
+      dockerfile: Dockerfile
     ports:
       - "4200:80"
     depends_on:
