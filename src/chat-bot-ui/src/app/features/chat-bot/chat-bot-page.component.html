@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <h2>ChatBot App</h2>
+</mat-toolbar>
+
+<div class="chat-container">
+  <div class="chat-history">
+    <mat-card *ngFor="let message of messages" [ngClass]="{'user-message': message.isUser, 'bot-message': !message.isUser}">
+      <mat-card-content>{{ message.text }}</mat-card-content>
+      <div *ngIf="!message.isUser && !isTyping" class="rating-buttons">
+        <button mat-icon-button color="primary"
+                [ngClass]="{'success': message.rating === 1}"
+                (click)="rateMessage(message, 1)">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+        <button mat-icon-button color="warn"
+                [ngClass]="{'failure': message.rating === -1}"
+                (click)="rateMessage(message, -1)">
+          <mat-icon>thumb_down</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="chat-input">
+    <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Type your message...</mat-label>
+      <input matInput [(ngModel)]="userInput" (keyup.enter)="sendMessage()" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
+    <button mat-raised-button color="warn" (click)="stopTyping()" [disabled]="!isTyping">Stop</button>
+  </div>
+</div>
